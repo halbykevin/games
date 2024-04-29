@@ -1,0 +1,137 @@
+/* General body and html styles, keep your original resets and backgrounds */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000; /* Set background color */
+  text-align: center;
+  flex-direction: column; /* Stack children vertically */
+}
+
+.centered-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px; /* Adjust width as necessary */
+}
+
+#textBox {
+  padding: 20px;
+  font-size: 25px;
+  border: 2px solid red;
+  color: red;
+}
+
+.textLine1 {
+  color: red;
+}
+
+.textLine2 {
+  color: white;
+}
+
+button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  border: 2px solid red;
+  background-color: black;
+  color: red;
+  cursor: pointer;
+  margin-top: 20px; /* Space between the text box and button */
+  outline: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover,
+button:focus {
+  background-color: red;
+  color: black;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 600px) {
+  .centered-container {
+    width: 60%; /* Responsive width adjustment */
+  }
+
+  button {
+    font-size: 2em;
+    padding: 8px 16px;
+  }
+}
+
+.settings-container {
+  text-align: center;
+  color: red; /* Ensuring text is visible on black background */
+}
+
+input[type="range"] {
+  width: 80%; /* Full width on mobile devices */
+  margin: 20px;
+}
+/* Styles for the settings container and general styling */
+.settings-container {
+  text-align: center;
+  color: red; /* Ensuring text is visible on black background */
+}
+
+input[type="range"] {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 80%; /* Responsive width */
+  height: 8px; /* Set the slider bar height */
+  background: red; /* Red track color */
+  outline: none; /* Remove default focus style */
+  opacity: 0.7; /* Partial transparency */
+  transition: opacity 0.2s; /* Smooth transition for hover effect */
+}
+
+/* Style for the slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Required for proper thumb styling */
+  appearance: none;
+  width: 20px; /* Set thumb width */
+  height: 20px; /* Set thumb height */
+  background: #fff; /* White thumb color */
+  cursor: pointer; /* Cursor changes to pointer when over the thumb */
+  border: 2px solid red; /* Red border for the thumb */
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  cursor: pointer;
+  border: 2px solid red;
+}
+
+/* Styles to change the track appearance on Firefox */
+input[type="range"]::-moz-range-track {
+  background: red;
+  height: 8px;
+}
+
+/* Styles to change the track appearance on IE */
+input[type="range"]::-ms-track {
+  background: red;
+  height: 8px;
+  border-color: transparent; /* IE requires this to properly set track color */
+}
+
+input[type="range"]::-ms-thumb {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  cursor: pointer;
+  border: 2px solid red;
+}
+
+/* Hover effects */
+input[type="range"]:hover {
+  opacity: 1; /* Full opacity on hover */
+}
