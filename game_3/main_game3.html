@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Main Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        padding: 20px;
+      }
+      button {
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Do or Drink - Main Game</h2>
+      <div id="gameArea">
+        <h3 id="playerTurn"></h3>
+        <p id="challenge">Or drink!</p>
+        <button onclick="nextTurn(3)">Next</button>
+        <button onclick="nextTurn(9)">Accomplished</button>
+        <button onclick="restartGame()">Restart</button>
+        <button onclick="exitGame()">Exit</button>
+        <button onclick="showLeaderboard()">Leaderboard</button>
+      </div>
+      <div id="leaderboard" style="display: none">
+        <h3>Leaderboard</h3>
+        <ul id="scoreList"></ul>
+      </div>
+    </div>
+
+    <script>
+      var players = JSON.parse(localStorage.getItem("players") || "[]");
+      var scores = JSON.parse(localStorage.getItem("scores") || "[]");
+      var currentIndex = 0;
+      var dares = [
+        "Sing a song",
+        "Do 10 push-ups",
+        "Imitate someone",
+        "Tell a joke",
+        "Dance for 1 minute",
+      ];
+
+      function displayPlayer() {
+        var player = players[currentIndex];
+        var dare = dares[Math.floor(Math.random() * dares.length)];
+        document.getElementById("playerTurn").textContent =
+          player + ": " + dare;
+      }
+
+      function nextTurn(points) {
+        scores[currentIndex] += points;
+        currentIndex = (currentIndex + 1) % players.length;
+        displayPlayer();
+        localStorage.setItem("scores", JSON.stringify(scores));
+      }
+
+      function restartGame() {
+        localStorage.removeItem("players");
+        localStorage.removeItem("scores");
+        window.location.href = "setup_game3.html";
+      }
+
+      function exitGame() {
+        window.location.href = "../gamesCollection.html";
+      }
+
+      function showLeaderboard() {
+        var leaderboard = document.getElementById("leaderboard");
+        var scoreList = document.getElementById("scoreList");
+        scoreList.innerHTML = "";
+        players
+          .map((player, index) => ({ name: player, score: scores[index] }))
+          .sort((a, b) => b.score - a.score)
+          .forEach((player) => {
+            var li = document.createElement("li");
+            li.textContent = player.name + ": " + player.score;
+            scoreList.appendChild(li);
+          });
+        leaderboard.style.display = "block";
+      }
+
+      displayPlayer();
+    </script>
+  </body>
+</html>

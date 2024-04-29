@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Setup Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        padding: 20px;
+      }
+      .input-field {
+        margin-bottom: 10px;
+      }
+      button {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Do or Drink - Setup</h2>
+      <div>
+        <label for="playerCount">Enter Number of Players:</label>
+        <input type="number" id="playerCount" min="2" max="10" />
+        <button onclick="generatePlayerInputs()">Set Players</button>
+      </div>
+      <form id="playerNamesForm" style="display: none">
+        <h3>Enter Player Names:</h3>
+        <div id="playerInputs"></div>
+        <button type="button" onclick="startGame()">Start Game</button>
+      </form>
+    </div>
+
+    <script>
+      function generatePlayerInputs() {
+        var playerCount = document.getElementById("playerCount").value;
+        var playerInputsContainer = document.getElementById("playerInputs");
+        playerInputsContainer.innerHTML = "";
+        if (playerCount) {
+          for (var i = 0; i < playerCount; i++) {
+            var input = document.createElement("input");
+            input.type = "text";
+            input.required = true;
+            input.placeholder = "Player " + (i + 1) + " Name";
+            playerInputsContainer.appendChild(input);
+            playerInputsContainer.appendChild(document.createElement("br"));
+          }
+          document.getElementById("playerNamesForm").style.display = "block";
+        }
+      }
+
+      function startGame() {
+        var inputs = document.querySelectorAll("#playerInputs input");
+        var players = [];
+        for (var input of inputs) {
+          if (input.value.trim() === "") {
+            alert("Please fill all names.");
+            return;
+          }
+          players.push(input.value.trim());
+        }
+        localStorage.setItem("players", JSON.stringify(players));
+        localStorage.setItem("scores", JSON.stringify(players.map(() => 0)));
+        window.location.href = "main_game3.html";
+      }
+    </script>
+  </body>
+</html>
