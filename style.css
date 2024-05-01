@@ -266,8 +266,7 @@
 
 #game3:hover {
   color: #ffffff;
-  box-shadow: inset 0 0 10px rgb(212, 253, 27),
-    0 0 9px 3px rgb(212, 253, 27);
+  box-shadow: inset 0 0 10px rgb(212, 253, 27), 0 0 9px 3px rgb(212, 253, 27);
 }
 
 #game3:before {
@@ -291,7 +290,6 @@
 #game3:hover:before {
   transform: translateX(15em);
 }
-
 
 #game4 {
   font-size: 15px;
@@ -347,4 +345,3 @@
 #game4:hover:before {
   transform: translateX(15em);
 }
-
