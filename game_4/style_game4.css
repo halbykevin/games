@@ -1,11 +1,11 @@
-*{
-    background-color: black;
-    color: white;
+* {
+  background-color: black;
+  color: white;
 }
 
-#startButton{
-    padding: 30px 50px;
-    border: 1px solid white;
-    font-size: 25px;
-    display: block;
+#startButton {
+  padding: 30px 50px;
+  border: 1px solid white;
+  font-size: 25px;
+  display: block;
 }

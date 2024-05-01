@@ -27,6 +27,56 @@
         "What are you most afraid of?",
         "What do you value most in a friendship?",
         "What is one dream you have yet to accomplish?",
+        "What is something you've never told anyone?",
+        "If you could change one thing about your past, what would it be?",
+        "What are you most afraid of?",
+        "What do you value most in a friendship?",
+        "What is one dream you have yet to accomplish?",
+        "How do you define success in life?",
+        "What has been the most challenging experience of your life?",
+        "Who has been the most influential person in your life and why?",
+        "What does happiness mean to you?",
+        "If you knew today was your last day on Earth, what would you do?",
+        "What life lesson did you learn the hard way?",
+        "Do you think people can truly change?",
+        "What are you most grateful for?",
+        "What do you regret not doing or starting when you were younger?",
+        "If you could hear every opinion someone has of you, would you want to?",
+        "What moment in your life would you like to relive?",
+        "What is holding you back from being the person you want to be?",
+        "How has your life been different than what you'd imagined?",
+        "What do you do to improve your mood when you are in a bad mood?",
+        "What is too serious to joke about?",
+        "What do you think your future self will remember about you now?",
+        "Is there something you've dreamed of doing for a long time? Why haven't you done it?",
+        "What are your top three priorities?",
+        "What do you wish you had more time for?",
+        "What is a belief you had that you no longer hold?",
+        "What has compelled you to change your mind or your direction in life?",
+        "What do you consider your greatest achievement?",
+        "What do you want to be remembered for?",
+        "What has been your most humbling experience?",
+        "What do you think is the meaning of life?",
+        "What personal trait has gotten you in the most trouble?",
+        "How do you handle feeling overwhelmed?",
+        "What is the best advice you've ever received?",
+        "What mystery do you wish you knew the answer to?",
+        "How do you deal with loneliness?",
+        "What is one thing you don’t understand about yourself?",
+        "What makes life worth living?",
+        "What do you lie about and why?",
+        "How do you define love?",
+        "What are you not seeing right now that you should see?",
+        "What did life teach you yesterday?",
+        "What is the most significant change you would like to make in your life?",
+        "When is it acceptable, if ever, to disobey the law?",
+        "What do you think is the most important life lesson for someone to learn?",
+        "What makes you feel empowered?",
+        "What personal qualities do you think are most important in maintaining a relationship?",
+        "How do you balance personal needs with the needs of others?",
+        "What do you think your older self will advise you to do right now?",
+        "What are the most important memories you want to create?",
+        "How do you want to impact the world?",
       ];
 
       const players = JSON.parse(localStorage.getItem("players") || "[]");
@@ -45,16 +95,24 @@
           idx2 = Math.floor(Math.random() * players.length);
           attempts++;
 
-          if (attempts > 100) { // Prevent infinite loop
+          if (attempts > 100) {
+            // Prevent infinite loop
             currentPlayerIndices.clear(); // Reset if stuck
             attempts = 0; // Reset attempts counter after clearing
           }
-        } while (idx1 === idx2 || currentPlayerIndices.has(`${idx1},${idx2}`) || currentPlayerIndices.has(`${idx2},${idx1}`));
+        } while (
+          idx1 === idx2 ||
+          currentPlayerIndices.has(`${idx1},${idx2}`) ||
+          currentPlayerIndices.has(`${idx2},${idx1}`)
+        );
 
         currentPlayerIndices.add(`${idx1},${idx2}`);
 
         // Reset if all pairs have been used
-        if (currentPlayerIndices.size === players.length * (players.length - 1) / 2) {
+        if (
+          currentPlayerIndices.size ===
+          (players.length * (players.length - 1)) / 2
+        ) {
           currentPlayerIndices.clear();
         }
 
@@ -64,11 +122,13 @@
       function nextRound() {
         const [player1, player2] = getRandomPlayers();
         if (player1 && player2) {
-          const question = questions[Math.floor(Math.random() * questions.length)];
+          const question =
+            questions[Math.floor(Math.random() * questions.length)];
           const gameContent = document.getElementById("gameContent");
           gameContent.innerHTML = `<p>${player1} asks ${player2}: ${question}</p>`;
         } else {
-          document.getElementById("gameContent").innerHTML = "<p>Insufficient players.</p>";
+          document.getElementById("gameContent").innerHTML =
+            "<p>Insufficient players.</p>";
         }
       }
 
