@@ -1,72 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Set Game</title>
-    <link rel="stylesheet" href="style_game4.css">
+    <link rel="stylesheet" href="style_game4.css" />
     <style>
-        html, body {
-            height: 100%; /* Allow the body to fill the entire height of the page */
-            margin: 0; /* Remove default margin */
-            display: flex; /* Enable flexbox */
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            font-family: Arial, sans-serif; /* Set font */
-        }
-        #container {
-            text-align: center; /* Center text within the container */
-        }
-        input[type="number"], .player-input {
-            display: block;
-            margin: 10px auto 20px; /* Auto margins for horizontal centering */
-            padding: 10px;
-            width: 200px; /* Fixed width */
-            border: 2px solid white;
-            background-color: #fff;
-            color: #333;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
+      html,
+      body {
+        height: 100%; /* Allow the body to fill the entire height of the page */
+        margin: 0; /* Remove default margin */
+        display: flex; /* Enable flexbox */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        font-family: Arial, sans-serif; /* Set font */
+      }
+      #container {
+        text-align: center; /* Center text within the container */
+      }
+      input[type="number"],
+      .player-input {
+        display: block;
+        margin: 10px auto 20px; /* Auto margins for horizontal centering */
+        padding: 10px;
+        width: 200px; /* Fixed width */
+        border: 2px solid white;
+        background-color: #fff;
+        color: #333;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="container">
-        <h2>Setup Players</h2>
-        <div>
-            <label for="numPlayers">Number of Players:</label>
-            <input type="number" id="numPlayers" min="2">
-            <button onclick="createInputFields()" id="setPlayers">Set Players</button><br><br>
-        </div>
-        <form id="playersForm" onsubmit="startGame(event)">
-            <div id="playerInputs"></div>
-            <button type="submit" id="start">Start</button>
-        </form>
+      <h2>Setup Players</h2>
+      <div>
+        <label for="numPlayers">Number of Players:</label>
+        <input type="number" id="numPlayers" min="2" />
+        <button onclick="createInputFields()" id="setPlayers">
+          Set Players</button
+        ><br /><br />
+      </div>
+      <form id="playersForm" onsubmit="startGame(event)">
+        <div id="playerInputs"></div>
+        <button type="submit" id="start">Start</button>
+      </form>
     </div>
 
     <script>
-        function createInputFields() {
-            const numPlayers = document.getElementById('numPlayers').value;
-            const playerInputs = document.getElementById('playerInputs');
-            playerInputs.innerHTML = ''; // Clear previous inputs
-            for (let i = 0; i < numPlayers; i++) {
-                const input = document.createElement('input');
-                input.setAttribute('type', 'text');
-                input.setAttribute('placeholder', `Player ${i + 1} Name`);
-                input.required = true;
-                input.className = 'player-input'; // Ensure it gets the same styling
-                playerInputs.appendChild(input);
-                playerInputs.appendChild(document.createElement('br'));
-            }
+      function createInputFields() {
+        const numPlayers = document.getElementById("numPlayers").value;
+        const playerInputs = document.getElementById("playerInputs");
+        playerInputs.innerHTML = ""; // Clear previous inputs
+        for (let i = 0; i < numPlayers; i++) {
+          const input = document.createElement("input");
+          input.setAttribute("type", "text");
+          input.setAttribute("placeholder", `Player ${i + 1} Name`);
+          input.required = true;
+          input.className = "player-input"; // Ensure it gets the same styling
+          playerInputs.appendChild(input);
+          playerInputs.appendChild(document.createElement("br"));
         }
+      }
 
-        function startGame(event) {
-            event.preventDefault();
-            const inputs = document.querySelectorAll('#playersForm input[type="text"]');
-            const players = Array.from(inputs).map(input => input.value);
-            localStorage.setItem('players', JSON.stringify(players)); // Store player names in localStorage
-            window.location.href = 'main_game4.html'; // Redirect to the game page
-        }
+      function startGame(event) {
+        event.preventDefault();
+        const inputs = document.querySelectorAll(
+          '#playersForm input[type="text"]'
+        );
+        const players = Array.from(inputs).map((input) => input.value);
+        localStorage.setItem("players", JSON.stringify(players)); // Store player names in localStorage
+        window.location.href = "main_game4.html"; // Redirect to the game page
+      }
     </script>
-</body>
+  </body>
 </html>
