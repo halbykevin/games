@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .player-input { margin-bottom: 10px; }
+        button { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Setup Players</h2>
+    <div>
+        <label for="numPlayers">Number of Players:</label>
+        <input type="number" id="numPlayers" min="2">
+        <button onclick="createInputFields()">Set Players</button>
+    </div>
+    <form id="playersForm" onsubmit="startGame(event)">
+        <div id="playerInputs"></div>
+        <button type="submit">Start</button>
+    </form>
+
+    <script>
+        function createInputFields() {
+            const numPlayers = document.getElementById('numPlayers').value;
+            const playerInputs = document.getElementById('playerInputs');
+            playerInputs.innerHTML = ''; // Clear previous inputs
+            for (let i = 0; i < numPlayers; i++) {
+                const input = document.createElement('input');
+                input.setAttribute('type', 'text');
+                input.setAttribute('placeholder', `Player ${i + 1} Name`);
+                input.required = true;
+                playerInputs.appendChild(input);
+                playerInputs.appendChild(document.createElement('br'));
+            }
+        }
+
+        function startGame(event) {
+            event.preventDefault();
+            const inputs = document.querySelectorAll('#playersForm input[type="text"]');
+            const players = Array.from(inputs).map(input => input.value);
+            localStorage.setItem('players', JSON.stringify(players)); // Store player names in localStorage
+            window.location.href = 'main_game4.html'; // Redirect to the game page
+        }
+    </script>
+</body>
+</html>

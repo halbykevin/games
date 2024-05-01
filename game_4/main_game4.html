@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      button {
+        margin-top: 10px;
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Game Time</h2>
+    <div id="gameContent"></div>
+    <button onclick="nextRound()">Next</button>
+    <button onclick="exitGame()">Exit</button>
+
+    <script>
+      const questions = [
+        "What is something you've never told anyone?",
+        "If you could change one thing about your past, what would it be?",
+        "What are you most afraid of?",
+        "What do you value most in a friendship?",
+        "What is one dream you have yet to accomplish?",
+      ];
+
+      const players = JSON.parse(localStorage.getItem("players") || "[]");
+      let currentPlayerIndices = new Set();
+
+      function getRandomPlayers() {
+        if (players.length < 2) {
+          console.error("Not enough players.");
+          return [];
+        }
+        let idx1, idx2;
+        do {
+          idx1 = Math.floor(Math.random() * players.length);
+          idx2 = Math.floor(Math.random() * players.length);
+        } while (
+          idx1 === idx2 ||
+          currentPlayerIndices.has(idx1) ||
+          currentPlayerIndices.has(idx2)
+        );
+
+        currentPlayerIndices.add(idx1);
+        currentPlayerIndices.add(idx2);
+
+        // Reset if all pairs have been used
+        if (currentPlayerIndices.size >= players.length) {
+          currentPlayerIndices.clear();
+        }
+
+        return [players[idx1], players[idx2]];
+      }
+
+      function nextRound() {
+        const [player1, player2] = getRandomPlayers();
+        if (player1 && player2) {
+          const question =
+            questions[Math.floor(Math.random() * questions.length)];
+          const gameContent = document.getElementById("gameContent");
+          gameContent.innerHTML = `<p>${player1} asks ${player2}: ${question}</p>`;
+        } else {
+          document.getElementById("gameContent").innerHTML =
+            "<p>Insufficient players.</p>";
+        }
+      }
+
+      function exitGame() {
+        window.location.href = "../gamesCollection.html"; // Adjust path as needed
+      }
+
+      // Initialize the first round
+      window.onload = nextRound; // Using onload to ensure JS loads properly
+    </script>
+  </body>
+</html>
