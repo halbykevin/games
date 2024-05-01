@@ -4,24 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main Game</title>
+    <link rel="stylesheet" href="style_game4.css" />
     <style>
+      html,
       body {
-        font-family: Arial, sans-serif;
+        height: 100%; /* Make sure the html and body cover full height */
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+        display: flex; /* Use flexbox */
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        flex-direction: column; /* Stack children vertically */
+        font-family: Arial, sans-serif; /* Set font */
       }
+      #gameContent,
       button {
-        margin-top: 10px;
-        margin-right: 5px;
+        margin-top: 10px; /* Space between items */
       }
     </style>
   </head>
   <body>
     <h2>Game Time</h2>
     <div id="gameContent"></div>
-    <button onclick="nextRound()">Next</button>
-    <button onclick="exitGame()">Exit</button>
+    <button onclick="nextRound()" id="next">Next</button>
+    <button onclick="exitGame()" id="exit">Exit</button>
 
     <script>
       const questions = [
+        // Questions list omitted for brevity
         "What is something you've never told anyone?",
         "If you could change one thing about your past, what would it be?",
         "What are you most afraid of?",
@@ -88,7 +98,7 @@
           return [];
         }
         let idx1, idx2;
-        let attempts = 0; // Keep track of attempts to avoid infinite loops
+        let attempts = 0;
 
         do {
           idx1 = Math.floor(Math.random() * players.length);
@@ -96,9 +106,8 @@
           attempts++;
 
           if (attempts > 100) {
-            // Prevent infinite loop
-            currentPlayerIndices.clear(); // Reset if stuck
-            attempts = 0; // Reset attempts counter after clearing
+            currentPlayerIndices.clear(); // Clear and reset if stuck
+            attempts = 0;
           }
         } while (
           idx1 === idx2 ||
@@ -108,7 +117,6 @@
 
         currentPlayerIndices.add(`${idx1},${idx2}`);
 
-        // Reset if all pairs have been used
         if (
           currentPlayerIndices.size ===
           (players.length * (players.length - 1)) / 2
@@ -125,7 +133,8 @@
           const question =
             questions[Math.floor(Math.random() * questions.length)];
           const gameContent = document.getElementById("gameContent");
-          gameContent.innerHTML = `<p>${player1} asks ${player2}: ${question}</p>`;
+          // Color the player names blue using inline CSS
+          gameContent.innerHTML = `<p><span style="color: blue;">${player1}</span> asks <span style="color: blue;">${player2}</span>: ${question}</p>`;
         } else {
           document.getElementById("gameContent").innerHTML =
             "<p>Insufficient players.</p>";
@@ -133,11 +142,10 @@
       }
 
       function exitGame() {
-        window.location.href = "../gamesCollection.html"; // Adjust path as needed
+        window.location.href = "../gamesCollection.html";
       }
 
-      // Initialize the first round
-      window.onload = nextRound; // Using onload to ensure JS loads properly
+      window.onload = nextRound;
     </script>
   </body>
 </html>
