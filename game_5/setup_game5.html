@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Setup Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      label,
+      input,
+      button,
+      div {
+        display: block;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Game Setup</h2>
+    <form id="setupForm">
+      <label for="numPlayers">Number of Players:</label>
+      <input type="number" id="numPlayers" min="2" required />
+
+      <div id="playerNames"></div>
+
+      <label for="numSpies">Number of Spies:</label>
+      <input type="number" id="numSpies" min="1" required />
+
+      <fieldset>
+        <legend>Categories</legend>
+        <label
+          ><input type="checkbox" name="category" value="Animals" />
+          Animals</label
+        >
+        <label
+          ><input type="checkbox" name="category" value="Sports" />
+          Sports</label
+        >
+        <label
+          ><input type="checkbox" name="category" value="Shapes" />
+          Shapes</label
+        >
+        <label
+          ><input type="checkbox" name="category" value="Flags" /> Flags</label
+        >
+      </fieldset>
+
+      <button type="submit">Start</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("numPlayers")
+        .addEventListener("change", function () {
+          const playerContainer = document.getElementById("playerNames");
+          playerContainer.innerHTML = ""; // Clear previous inputs
+          const numPlayers = parseInt(this.value, 10);
+          for (let i = 1; i <= numPlayers; i++) {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = `Player ${i} Name`;
+            input.name = "playerName";
+            input.required = true;
+            playerContainer.appendChild(input);
+          }
+        });
+
+      const words = {
+        Animals: ["Lion", "Elephant", "Giraffe"],
+        Sports: ["Soccer", "Basketball", "Tennis"],
+        Shapes: ["Circle", "Square", "Triangle"],
+        Flags: ["USA", "UK", "France"],
+      };
+
+      document
+        .getElementById("setupForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const numPlayers = parseInt(
+            document.getElementById("numPlayers").value,
+            10
+          );
+          const numSpies = parseInt(
+            document.getElementById("numSpies").value,
+            10
+          );
+          const playerNames = Array.from(
+            document.querySelectorAll('input[name="playerName"]')
+          ).map((input) => input.value);
+          const selectedCategories = Array.from(
+            document.querySelectorAll('input[name="category"]:checked')
+          ).map((el) => el.value);
+
+          // Store data in localStorage
+          localStorage.setItem("numPlayers", numPlayers);
+          localStorage.setItem("numSpies", numSpies);
+          localStorage.setItem("playerNames", JSON.stringify(playerNames));
+          localStorage.setItem(
+            "categories",
+            JSON.stringify(selectedCategories)
+          );
+
+          // Pick a random word from the selected categories
+          const randomCategory =
+            selectedCategories[
+              Math.floor(Math.random() * selectedCategories.length)
+            ];
+          const randomWord =
+            words[randomCategory][
+              Math.floor(Math.random() * words[randomCategory].length)
+            ];
+          localStorage.setItem("gameWord", randomWord);
+
+          window.location.href = "main_game5.html"; // Navigate to the game page
+        });
+    </script>
+  </body>
+</html>

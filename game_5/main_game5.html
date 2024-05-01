@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Game</title>
+    <style>
+      /* Initially hide the game control buttons */
+      .game-control {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Game Time</h2>
+    <div id="playerIdentity"></div>
+    <button onclick="showNextPlayerIdentity()" id="nextButton">Next</button>
+    <button onclick="startGame()" id="startGameButton">Start Game</button>
+
+    <!-- Game control buttons, initially hidden -->
+    <div class="game-control">
+      <button onclick="increaseSpyScore()">Win</button>
+      <button onclick="increasePlayerScore()">Lost</button>
+      <button onclick="showLeaderboard()">Leaderboard</button>
+      <button onclick="exitGame()">Exit</button>
+      <button onclick="restartGame()" id="restartButton">Restart Game</button>
+    </div>
+
+    <div id="leaderboard" style="margin-top: 20px"></div>
+    <!-- Leaderboard display area -->
+
+    <script>
+      const numPlayers = parseInt(localStorage.getItem("numPlayers"), 10);
+      const numSpies = parseInt(localStorage.getItem("numSpies"), 10);
+      const playerNames = JSON.parse(localStorage.getItem("playerNames"));
+      const words = {
+        Animals: ["Lion", "Elephant", "Giraffe"],
+        Sports: ["Soccer", "Basketball", "Tennis"],
+        Shapes: ["Circle", "Square", "Triangle"],
+        Flags: ["USA", "UK", "France"],
+      };
+      let players = [];
+      let scores = {};
+      let gameWord;
+
+      function initializeGame() {
+        players = [];
+        playerNames.forEach((name) => {
+          players.push({ name: name, role: "Player" });
+          if (!(name in scores)) {
+            scores[name] = 0; // Initialize scores for each player if not already initialized
+          }
+        });
+
+        // Randomly assign spy roles
+        for (let i = 0; i < numSpies; i++) {
+          let index;
+          do {
+            index = Math.floor(Math.random() * numPlayers);
+          } while (players[index].role === "Spy");
+          players[index].role = "Spy";
+        }
+
+        const categories = JSON.parse(localStorage.getItem("categories"));
+        const randomCategory =
+          categories[Math.floor(Math.random() * categories.length)];
+        gameWord =
+          words[randomCategory][
+            Math.floor(Math.random() * words[randomCategory].length)
+          ];
+      }
+
+      let currentPlayerIndex = 0;
+      function showNextPlayerIdentity() {
+        const playerIdentity = document.getElementById("playerIdentity");
+        if (currentPlayerIndex < numPlayers) {
+          const player = players[currentPlayerIndex++];
+          if (player.role === "Spy") {
+            playerIdentity.textContent = `${player.name} is the SPY`;
+          } else {
+            playerIdentity.textContent = `${player.name} is a PLAYER. The word is: ${gameWord}`;
+          }
+          setTimeout(function () {
+            playerIdentity.textContent = ""; // Clear the identity after 4 seconds
+          }, 3000); // 4000 milliseconds = 4 seconds
+        } else {
+          document.getElementById("playerIdentity").textContent = "";
+          document.getElementById("nextButton").style.display = "none";
+          document.getElementById("startGameButton").style.display = "none";
+          showGameControls(true); // Show game controls
+        }
+      }
+
+      function startGame() {
+        showGameControls(true); // Reveal the game control buttons
+        alert("Game has started!");
+      }
+
+      function showGameControls(show) {
+        const controls = document.querySelectorAll(".game-control");
+        controls.forEach((control) => {
+          control.style.display = show ? "block" : "none";
+        });
+      }
+
+      function increaseSpyScore() {
+        players
+          .filter((p) => p.role === "Spy")
+          .forEach((p) => (scores[p.name] += 3));
+        showLeaderboard();
+        restartGame();
+      }
+
+      function increasePlayerScore() {
+        players
+          .filter((p) => p.role === "Player")
+          .forEach((p) => (scores[p.name] += 1));
+        showLeaderboard();
+        restartGame();
+      }
+
+      function showLeaderboard() {
+        const leaderboard = document.getElementById("leaderboard");
+        const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        leaderboard.innerHTML =
+          "<h3>Leaderboard</h3>" +
+          sortedScores
+            .map(([name, score]) => `<p>${name}: ${score}</p>`)
+            .join("");
+      }
+
+      function restartGame() {
+        currentPlayerIndex = 0;
+        initializeGame();
+        document.getElementById("playerIdentity").textContent = "";
+        document.getElementById("nextButton").style.display = "block";
+        document.getElementById("startGameButton").style.display = "none";
+      }
+
+      function exitGame() {
+        window.location.href = "../gamesCollection.html";
+      }
+
+      // Initialize game on page load
+      window.onload = initializeGame;
+    </script>
+  </body>
+</html>
