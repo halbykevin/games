@@ -38,20 +38,23 @@
           return [];
         }
         let idx1, idx2;
+        let attempts = 0; // Keep track of attempts to avoid infinite loops
+
         do {
           idx1 = Math.floor(Math.random() * players.length);
           idx2 = Math.floor(Math.random() * players.length);
-        } while (
-          idx1 === idx2 ||
-          currentPlayerIndices.has(idx1) ||
-          currentPlayerIndices.has(idx2)
-        );
+          attempts++;
 
-        currentPlayerIndices.add(idx1);
-        currentPlayerIndices.add(idx2);
+          if (attempts > 100) { // Prevent infinite loop
+            currentPlayerIndices.clear(); // Reset if stuck
+            attempts = 0; // Reset attempts counter after clearing
+          }
+        } while (idx1 === idx2 || currentPlayerIndices.has(`${idx1},${idx2}`) || currentPlayerIndices.has(`${idx2},${idx1}`));
+
+        currentPlayerIndices.add(`${idx1},${idx2}`);
 
         // Reset if all pairs have been used
-        if (currentPlayerIndices.size >= players.length) {
+        if (currentPlayerIndices.size === players.length * (players.length - 1) / 2) {
           currentPlayerIndices.clear();
         }
 
@@ -61,13 +64,11 @@
       function nextRound() {
         const [player1, player2] = getRandomPlayers();
         if (player1 && player2) {
-          const question =
-            questions[Math.floor(Math.random() * questions.length)];
+          const question = questions[Math.floor(Math.random() * questions.length)];
           const gameContent = document.getElementById("gameContent");
           gameContent.innerHTML = `<p>${player1} asks ${player2}: ${question}</p>`;
         } else {
-          document.getElementById("gameContent").innerHTML =
-            "<p>Insufficient players.</p>";
+          document.getElementById("gameContent").innerHTML = "<p>Insufficient players.</p>";
         }
       }
 
