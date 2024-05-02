@@ -427,3 +427,4 @@
 #back-button:hover::after {
   transform: scaleX(1); /* Scale to full size when hovered */
 }
+

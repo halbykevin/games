@@ -30,25 +30,26 @@
       <label for="numSpies">Number of Spies:</label>
       <input type="number" id="numSpies" min="1" required />
 
-      <fieldset>
-        <legend>Categories</legend>
-        <label
-          ><input type="checkbox" name="category" value="Animals" />
-          Animals</label
-        >
-        <label
-          ><input type="checkbox" name="category" value="Sports" />
-          Sports</label
-        >
-        <label
-          ><input type="checkbox" name="category" value="Shapes" />
-          Shapes</label
-        >
-        <label
-          ><input type="checkbox" name="category" value="Flags" /> Flags</label
-        >
-      </fieldset>
-
+      <label class="switch">
+        <input type="checkbox" name="category" value="Animals" />
+        <span class="slider"></span>
+        <span class="label-text">Animals</span>
+      </label>
+      <label class="switch">
+        <input type="checkbox" name="category" value="Sports" />
+        <span class="slider"></span>
+        <span class="label-text">Sports</span>
+      </label>
+      <label class="switch">
+        <input type="checkbox" name="category" value="Shapes" />
+        <span class="slider"></span>
+        <span class="label-text">Shapes</span>
+      </label>
+      <label class="switch">
+        <input type="checkbox" name="category" value="Flags" />
+        <span class="slider"></span>
+        <span class="label-text">Flags</span>
+      </label>
       <button type="submit" id="submit">Start</button>
     </form>
 

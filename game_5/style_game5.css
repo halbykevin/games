@@ -45,24 +45,84 @@
   transform: translate(0em, 0.2em);
 }
 
-.gameControlBtns{
+.gameControlBtns {
   padding: 20px 50px;
   border-color: white;
 }
 
-#exitBtn{
+#exitBtn {
   color: white;
   border-color: red;
   padding: 20px 50px;
   background-color: red;
 }
 
-#nextButton{
+#nextButton {
   padding: 20px 50px;
   border-color: white;
 }
-#startGameButton{
+#startGameButton {
   padding: 20px 50px;
   border-color: white;
-  
+}
+
+/* The switch - the box around the slider */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: flex; /* Changed from block to flex to align items in a row */
+  align-items: center; /* Centers the slider and text vertically */
+  width: 100%; /* Full width to use available space */
+  height: 2em;
+  margin-bottom: 10px; /* Adds space between each switch */
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: relative; /* Changed from absolute to relative */
+  cursor: pointer;
+  height: 100%; /* Full height of the container */
+  width: 3.5em; /* Width as per your original design */
+  background-color: #fff;
+  border: 1px solid #adb5bd;
+  transition: 0.4s;
+  border-radius: 30px;
+  flex-shrink: 0; /* Prevents the slider from shrinking */
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  left: 0.27em;
+  bottom: 0.25em;
+  background-color: #adb5bd;
+  border-radius: 20px;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #007bff;
+  border: 1px solid #007bff;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #007bff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(1.4em);
+  background-color: #fff;
+}
+
+.label-text {
+  margin-left: 8px; /* Spacing between the slider and the text */
 }
