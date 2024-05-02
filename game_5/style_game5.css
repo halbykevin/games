@@ -44,3 +44,25 @@
 #submit:active {
   transform: translate(0em, 0.2em);
 }
+
+.gameControlBtns{
+  padding: 20px 50px;
+  border-color: white;
+}
+
+#exitBtn{
+  color: white;
+  border-color: red;
+  padding: 20px 50px;
+  background-color: red;
+}
+
+#nextButton{
+  padding: 20px 50px;
+  border-color: white;
+}
+#startGameButton{
+  padding: 20px 50px;
+  border-color: white;
+  
+}

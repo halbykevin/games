@@ -3,11 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style_game5.css" type="text/css" />
     <title>Main Game</title>
     <style>
       /* Initially hide the game control buttons */
       .game-control {
         display: none;
+      }
+      body {
+        text-align: center; /* Center text by default */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh; /* Full viewport height */
+        margin-left: 80px; /* Remove default margin */
+        margin-right: 80px; /* Remove default margin */
+      }
+      h2,
+      div,
+      button {
+        margin: 10px 0; /* Margin for spacing between elements */
+      }
+      h2 {
+        font-size: 40px;
+      }
+      #playerIdentity {
+        font-size: 30px;
       }
     </style>
   </head>
@@ -19,11 +40,22 @@
 
     <!-- Game control buttons, initially hidden -->
     <div class="game-control">
-      <button onclick="increaseSpyScore()">Win</button>
-      <button onclick="increasePlayerScore()">Lost</button>
-      <button onclick="showLeaderboard()">Leaderboard</button>
-      <button onclick="exitGame()">Exit</button>
-      <button onclick="restartGame()" id="restartButton">Restart Game</button>
+      <button onclick="increaseSpyScore()" class="gameControlBtns">Win</button>
+      <button onclick="increasePlayerScore()" class="gameControlBtns">
+        Lost
+      </button>
+      <button onclick="showLeaderboard()" class="gameControlBtns">
+        Leaderboard
+      </button>
+
+      <button
+        onclick="restartGame()"
+        id="restartButton"
+        class="gameControlBtns"
+      >
+        Restart Game
+      </button>
+      <button onclick="exitGame()" id="exitBtn">Exit</button>
     </div>
 
     <div id="leaderboard" style="margin-top: 20px"></div>
