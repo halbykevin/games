@@ -397,3 +397,33 @@
 #game5:hover:before {
   transform: translateX(15em);
 }
+
+#back-button {
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none; /* Removes default underline */
+  color: white; /* Set the color of the text */
+  font-size: 30px; /* Set the font size */
+  position: absolute; /* Use absolute positioning */
+  top: 16px; /* Align to the top of the nearest positioned ancestor or initial containing block */
+  left: 28px; /* Align to the left of the nearest positioned ancestor or initial containing block */
+  padding: 10px; /* Optional: adds padding around the text for better clickability */
+  background: none; /* Optional: remove if there's any default background */
+  border: none; /* Optional: remove if there's any default border */
+}
+
+#back-button::after {
+  content: ""; /* Required for a pseudo-element */
+  position: absolute;
+  bottom: 0; /* Align to the bottom of the link */
+  right: 0; /* Start from the right */
+  width: 100%; /* Full width of the element */
+  height: 2px; /* Thickness of the underline */
+  background-color: white; /* Color of the underline */
+  transition: transform 0.3s ease; /* Smooth transition for the transformation */
+  transform: scaleX(0); /* Start scaled to 0 (invisible) */
+  transform-origin: right; /* Scale from the right */
+}
+
+#back-button:hover::after {
+  transform: scaleX(1); /* Scale to full size when hovered */
+}
