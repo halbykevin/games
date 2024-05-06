@@ -1,0 +1,46 @@
+* {
+  margin: 0; /* Resets margin for all elements */
+  padding: 0; /* Resets padding for all elements */
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+  background-color: black; /* Background color */
+  color: white; /* Text color */
+}
+
+body,
+html {
+  height: 100%; /* Full height */
+  display: flex;
+  align-items: center; /* Align vertically center */
+  justify-content: center; /* Align horizontally center */
+}
+
+.center-container {
+  text-align: center;
+}
+
+#startButton,
+#backButton {
+  font-size: 17px;
+  padding: 0.5em 2em;
+  border: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  background: dodgerblue;
+  color: white;
+  border-radius: 4px;
+  margin: 10px 0; /* Adds vertical spacing between buttons */
+  cursor: pointer;
+}
+
+#startButton:hover,
+#backButton:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(30, 144, 255, 1) 0%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+#startButton:active,
+#backButton:active {
+  transform: translate(0em, 0.2em);
+}
